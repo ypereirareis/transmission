@@ -83,10 +83,11 @@ else
     sed -i '/"queue-stalled-enabled"/s/:.*/: true,/' $dir/info/settings.json
     sed -i '/"speed-limit-up"/s/:.*/: 10,/' $dir/info/settings.json
     sed -i '/"speed-limit-up-enabled"/s/:.*/: true,/' $dir/info/settings.json
+    sed -i '/"rpc-authentication-required"/s/:.*/: false,/' $dir/info/settings.json
+
     exec su -l debian-transmission -s /bin/bash -c "exec transmission-daemon \
                 --config-dir $dir/info --blocklist --encryption-preferred \
                 --log-error -e /dev/stdout --global-seedratio 2.0 --dht \
-                --incomplete-dir $dir/incomplete --paused --auth --foreground \
-                --username '${TRUSER:-admin}' --password '${TRPASSWD:-admin}' \
+                --incomplete-dir $dir/incomplete --paused --foreground \
                 --download-dir $dir/downloads --no-portmap --allowed \\* 2>&1"
 fi
